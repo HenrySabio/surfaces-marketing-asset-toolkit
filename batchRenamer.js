@@ -11,10 +11,31 @@ const fs = require('fs');
 let originalNames = fs.readFileSync('data/originalName.txt').toString().split('\n');
 let newNames = fs.readFileSync('data/newName.txt').toString().split('\n');
 
+// Functions
+
+const renameFiles = (oldPath, newPath) => {
+    fs.rename(oldPath, newPath, function (err) {
+        if (err) throw err;
+        console.log('File Renamed.');
+    });
+}
+
+// End Functions
+
 // For each name in originalNames array - search image folder
 // If match is found, rename file using name in same index of the newNames array.
-for (var i = 0; i < productArray.length; i++) {
-    productArray[i] = productArray[i] + '_A';
+for (var i = 0; i < originalNames.length; i++) {
+    originalNames[i] = originalNames[i] + '_A';
+    let originalPath = `images/${originalNames[i]}.jpg`
+    let newPath = `images/${newNames[i]}.jpg`
+
+    fs.access(originalPath, fs.F_OK, (err) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        renameFiles(originalPath, newPath);
+    })
 }
 
 /* ----- End: Application Dependency and Variable setup ----- */
