@@ -14,7 +14,9 @@ let prefix = '';
 
 // Creates a new progress bar instance
 const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
-let barValue = 1;
+let barValue = 0;
+
+/* ----- End: Application Dependency and Variable setup ----- */
 
 // Functions
 
@@ -46,16 +48,18 @@ const findPrefix = (file) => {
     }
 }
 
-const fileSearch = (y) => {
-    findPrefix(y);
+const fileSearch = (w) => {
+    findPrefix(w);
+    let x = originalNames.indexOf(w.substr(0, w.indexOf('_')));
+    let y = w.substr(0, w.indexOf('_'));
     // For each name in originalNames array - search image folder
     // If match is found, rename file using name in same index of the newNames array.
-    for (var i = 0; i < originalNames.length; i++) {
-        originalNames[i] = originalNames[i];
-        let originalPath = `images/${originalNames[i]}${prefix}`;
-        let newPath = `images/${newNames[i]}${prefix}`;
-        
+    if (originalNames.includes(y)) {
+        let originalPath = `images/${originalNames[x]}${prefix}`;
+        let newPath = `images/${newNames[x]}${prefix}`;
         renameFiles(originalPath, newPath);
+    } else {
+        return;
     }
 }
 
@@ -68,24 +72,25 @@ const renameFiles = (oldPath, newPath) => {
 // End Functions
 
 // Set bar length to amount of items we are searching for, start point to 0
-bar1.start(originalNames.length, 1, {
-    speed: 'N/A'
-});
+bar1.start(originalNames.length, 0);
+
+// Main Application Start
 
 files.forEach(function (file, index) {
-    bar1.increment();
     (function (index) {
         setTimeout(function () {
-            if (barValue === originalNames.length) {
-                bar1.update(barValue++);
+            bar1.increment();
+            if (index === originalNames.length) {
+                fileSearch(file);
                 bar1.stop();
-            } else {
+                return;
+            } else if (index < originalNames.length) {
                 bar1.update(barValue++);
                 fileSearch(file);
+                return;
             }
-        }, index * 200);
+        }, index * 100);
     })(index);
 })
 
-
-/* ----- End: Application Dependency and Variable setup ----- */
+/* ----- Main Application End ----- */
