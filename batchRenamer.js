@@ -1,5 +1,5 @@
 /* ----- BEGIN: Application Dependency and Variable setup ----- */
-
+const cliProgress = require('cli-progress');
 const inquirer = require("inquirer");
 
 // Assigns current date to variable - formatted yyyy-mm-dd
@@ -11,6 +11,10 @@ let files = fs.readdirSync('images');
 let originalNames = fs.readFileSync('data/originalName.txt').toString().split('\n');
 let newNames = fs.readFileSync('data/newName.txt').toString().split('\n');
 let prefix = '';
+
+// Creates a new progress bar instance
+const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+let barValue = 1;
 
 // Functions
 
@@ -50,7 +54,7 @@ const fileSearch = (y) => {
         originalNames[i] = originalNames[i];
         let originalPath = `images/${originalNames[i]}${prefix}`;
         let newPath = `images/${newNames[i]}${prefix}`;
-
+        
         renameFiles(originalPath, newPath);
     }
 }
@@ -63,9 +67,22 @@ const renameFiles = (oldPath, newPath) => {
 
 // End Functions
 
+// Set bar length to amount of items we are searching for, start point to 0
+bar1.start(originalNames.length, 1, {
+    speed: 'N/A'
+});
 
-files.forEach(function (file) {
-    fileSearch(file);
+files.forEach(function (file, index) {
+    bar1.increment();
+    setTimeout(function (index) {
+        if (barValue === originalNames.length) {
+            bar1.update(barValue++);
+            bar1.stop();
+        } else {
+            bar1.update(barValue++);
+            fileSearch(file);
+        }
+    }, index * 200);
 })
 
 
