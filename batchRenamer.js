@@ -48,21 +48,29 @@ const findPrefix = (file) => {
     }
 }
 
+// Takes file from images folder and searches if exists in list of files to rename 
 const fileSearch = (w) => {
     findPrefix(w);
+    // Finds index of file in originalNames array - returns -1 if does not exists
     let x = originalNames.indexOf(w.substr(0, w.indexOf('_')));
+    // Sets file name (without prefix & format) to variable
     let y = w.substr(0, w.indexOf('_'));
-    // For each name in originalNames array - search image folder
-    // If match is found, rename file using name in same index of the newNames array.
+
+    // If file exsists inside of originalNames Array
     if (originalNames.includes(y)) {
+        // Defines original and new file path for renaming
         let originalPath = `images/${originalNames[x]}${prefix}`;
         let newPath = `images/${newNames[x]}${prefix}`;
+
+        // Renames file located at originalPath to newPath
         renameFiles(originalPath, newPath);
     } else {
+        // If file does not exist in list - return & move on to next file in folder
         return;
     }
 }
 
+// Renames file using paths passed to parameters
 const renameFiles = (oldPath, newPath) => {
     fs.rename(oldPath, newPath, function (err) {
         return;
@@ -76,6 +84,7 @@ bar1.start(originalNames.length, 0);
 
 // Main Application Start
 
+// For every file found in folder... search originalNames array and rename if exists using newNames array
 files.forEach(function (file, index) {
     (function (index) {
         setTimeout(function () {
