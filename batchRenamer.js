@@ -74,15 +74,17 @@ bar1.start(originalNames.length, 1, {
 
 files.forEach(function (file, index) {
     bar1.increment();
-    setTimeout(function (index) {
-        if (barValue === originalNames.length) {
-            bar1.update(barValue++);
-            bar1.stop();
-        } else {
-            bar1.update(barValue++);
-            fileSearch(file);
-        }
-    }, index * 200);
+    (function (index) {
+        setTimeout(function () {
+            if (barValue === originalNames.length) {
+                bar1.update(barValue++);
+                bar1.stop();
+            } else {
+                bar1.update(barValue++);
+                fileSearch(file);
+            }
+        }, index * 200);
+    })(index);
 })
 
 
