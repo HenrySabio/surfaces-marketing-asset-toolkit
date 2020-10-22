@@ -8,6 +8,7 @@ const date = new Date().toISOString().slice(0, 10);
 // Loads file system module, converts text file data to an arrays for renaming
 const fs = require('fs');
 let files = fs.readdirSync('images');
+let filesIndex = files.length - 1;
 let originalNames = fs.readFileSync('data/originalName.txt').toString().split('\n');
 let newNames = fs.readFileSync('data/newName.txt').toString().split('\n');
 let prefix = '';
@@ -21,28 +22,28 @@ let barValue = 0;
 // Functions
 
 const findPrefix = (file) => {
-    if (file.endsWith('_A.jpg')) {
-        prefix = '_A.jpg';
-    } else if (file.endsWith('_B.jpg')) {
-        prefix = '_B.jpg';
-    } else if (file.endsWith('_C.jpg')) {
-        prefix = '_C.jpg';
-    } else if (file.endsWith('_D.jpg')) {
-        prefix = '_D.jpg';
-    } else if (file.endsWith('_01.jpg')) {
-        prefix = '_01.jpg';
-    } else if (file.endsWith('_02.jpg')) {
-        prefix = '_02.jpg';
-    } else if (file.endsWith('_03.jpg')) {
-        prefix = '_03.jpg';
-    } else if (file.endsWith('_04.jpg')) {
-        prefix = '_04.jpg';
-    } else if (file.endsWith('_05.jpg')) {
-        prefix = '_05.jpg';
-    } else if (file.endsWith('_06.jpg')) {
-        prefix = '_06.jpg';
-    } else if (file.endsWith('_07.jpg')) {
-        prefix = '_07.jpg';
+    if (file.endsWith('_A.psd')) {
+        prefix = '_A.psd';
+    } else if (file.endsWith('_B.psd')) {
+        prefix = '_B.psd';
+    } else if (file.endsWith('_C.psd')) {
+        prefix = '_C.psd';
+    } else if (file.endsWith('_D.psd')) {
+        prefix = '_D.psd';
+    } else if (file.endsWith('_01.psd')) {
+        prefix = '_01.psd';
+    } else if (file.endsWith('_02.psd')) {
+        prefix = '_02.psd';
+    } else if (file.endsWith('_03.psd')) {
+        prefix = '_03.psd';
+    } else if (file.endsWith('_04.psd')) {
+        prefix = '_04.psd';
+    } else if (file.endsWith('_05.psd')) {
+        prefix = '_05.psd';
+    } else if (file.endsWith('_06.psd')) {
+        prefix = '_06.psd';
+    } else if (file.endsWith('_07.psd')) {
+        prefix = '_07.psd';
     } else {
         prefix = '';
     }
@@ -80,7 +81,7 @@ const renameFiles = (oldPath, newPath) => {
 // End Functions
 
 // Set bar length to amount of items we are searching for, start point to 0
-bar1.start(originalNames.length, 0);
+bar1.start(filesIndex, 0);
 
 // Main Application Start
 
@@ -89,11 +90,11 @@ files.forEach(function (file, index) {
     (function (index) {
         setTimeout(function () {
             bar1.increment();
-            if (index === originalNames.length) {
+            if (index === filesIndex) {;
                 fileSearch(file);
                 bar1.stop();
                 return;
-            } else if (index < originalNames.length) {
+            } else if (index < filesIndex) {
                 bar1.update(barValue++);
                 fileSearch(file);
                 return;

@@ -1,0 +1,27 @@
+{
+  "name": "batch-file-renamer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "batchRenamer.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "cli-progress": "^3.8.2",
+    "inquirer": "^7.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenrySabio/Batch-File-Renamer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HenrySabio/Batch-File-Renamer/issues"
+  },
+  "homepage": "https://github.com/HenrySabio/Batch-File-Renamer#readme"
+}
