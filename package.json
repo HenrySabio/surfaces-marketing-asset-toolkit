@@ -1,0 +1,27 @@
+{
+  "name": "surfaces-marketing-asset-toolkit",
+  "version": "1.0.0",
+  "description": "Internal tools used to automate tasks as well as manage & provide marketing assets to individuals within the workplace.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenrySabio/surfaces-marketing-asset-toolkit.git"
+  },
+  "author": "Henry Sabio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HenrySabio/surfaces-marketing-asset-toolkit/issues"
+  },
+  "homepage": "https://github.com/HenrySabio/surfaces-marketing-asset-toolkit#readme",
+  "dependencies": {
+    "cli-progress": "^3.9.0",
+    "dotenv": "^8.2.0",
+    "dropbox": "^9.1.0",
+    "es6-promise": "^4.2.8",
+    "inquirer": "^7.3.3",
+    "isomorphic-fetch": "^3.0.0"
+  }
+}
